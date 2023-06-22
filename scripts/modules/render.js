@@ -2,7 +2,6 @@ import { getCurrentDateTime } from "./utills.js";
 
 export const renderWidgetToday = (widget) => {
   const currentDateTime = getCurrentDateTime();
-  console.log('currentDateTime: ', currentDateTime);
 
   widget.insertAdjacentHTML(
     "beforeend",
