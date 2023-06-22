@@ -1,8 +1,8 @@
 import { getCurrentDateTime } from "./utills.js";
 
-export const renderWidgetToday = (widget) => {
-  const { month, dayOfMonth, dayOfWeek, hours, minutes, year } =
-    getCurrentDateTime();
+export const renderWidgetToday = (widget, data) => {
+  const { month, dayOfMonth, dayOfWeek, hours, minutes, year } = getCurrentDateTime();
+  console.log(data);
 
   widget.insertAdjacentHTML(
     "beforeend",
@@ -14,26 +14,32 @@ export const renderWidgetToday = (widget) => {
         <p class="widget__day">${dayOfWeek}</p>
       </div>
       <div class="widget__icon">
-        <img class="widget__img" src="./icon/01d.svg" alt="Погода" />
+        <img class="widget__img" src="./icon/${
+          data.weather[0].icon
+        }.svg" alt="Погода" />
       </div>
       <div class="widget__wheather">
         <div class="widget__city">
-          <p>Калининград</p>
+          <p>${data.name}</p>
           <button
             class="widget__change-city"
             aria-label="Изменить город"
           ></button>
         </div>
-        <p class="widget__temp-big">19.3°C</p>
+        <p class="widget__temp-big">${(data.main.temp - 273.15).toFixed(
+          1
+        )}°C</p>
         <p class="widget__felt">ощущается</p>
-        <p class="widget__temp-small">18.8 °C</p>
+        <p class="widget__temp-small">${(data.main.feels_like - 273.15).toFixed(
+          1
+        )}°C</p>
       </div>
     </div>
     `
   );
 };
 
-export const renderWidgetOther = (widget) => {
+export const renderWidgetOther = (widget, data) => {
   widget.insertAdjacentHTML(
     "beforeend",
     `
@@ -92,3 +98,8 @@ export const renderWidgetForecast = (widget) => {
     `
   );
 };
+
+export const showError = (widget, error) => {
+  widget.textContent = error.toString();
+  widget.classList.add('widget_error');
+}
