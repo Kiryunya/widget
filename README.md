@@ -1,0 +1,1 @@
+widget Weather by methodMD
